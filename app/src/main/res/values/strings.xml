@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PhotoShareAM2122-sergi</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="dummy_content">Dummy Content</string>
+    <string name="photo_share">Photo Share</string>
+    <string name="todo">TODO</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+</resources>

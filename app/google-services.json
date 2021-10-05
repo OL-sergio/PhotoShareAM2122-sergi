@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "930591611256",
+    "project_id": "photo-share-21-22",
+    "storage_bucket": "photo-share-21-22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930591611256:android:97f598573e3abc369a508d",
+        "android_client_info": {
+          "package_name": "ipca.appscore.photoshaream2122_sergi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930591611256-u58l01v9ujadpt77g6r4n6b0fvmkbt1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa01ISDjEHXl6j43S78fYIqFIOd3Hs02s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930591611256-u58l01v9ujadpt77g6r4n6b0fvmkbt1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

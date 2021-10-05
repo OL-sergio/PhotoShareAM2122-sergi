@@ -1,0 +1,31 @@
+<vector android:height="562.5dp" android:viewportHeight="300"
+    android:viewportWidth="400" android:width="750dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#999" android:name="outer inset" android:pathData="m200.76 49.19c58.54 0 105.99 47.46 105.99 105.99c0 58.54 -47.46 105.99 -105.99 105.99c-58.54 0 -105.99 -47.46 -105.99 -105.99c0 -58.54 47.46 -105.99 105.99 -105.99z"/>
+    <path android:fillColor="#999" android:name="outer inset" android:pathData="m200.76 65.69c49.43 0 89.49 40.07 89.49 89.49c0 49.43 -40.07 89.49 -89.49 89.49c-49.43 0 -89.49 -40.07 -89.49 -89.49c0 -49.43 40.07 -89.49 89.49 -89.49z"/>
+    <path android:fillColor="#666" android:name="outer ring" android:pathData="m200.76 73.13c45.32 0 82.05 36.74 82.05 82.05c0 45.32 -36.74 82.05 -82.05 82.05c-45.32 0 -82.05 -36.74 -82.05 -82.05c0 -45.32 36.74 -82.05 82.05 -82.05z"/>
+    <path android:fillAlpha="0.5" android:fillColor="#000"
+        android:name="outer lense" android:pathData="m200.76 88.18c37.01 0 67.01 30 67.01 67.01c0 37.01 -30 67.01 -67.01 67.01c-37.01 0 -67.01 -30 -67.01 -67.01c0 -37.01 30 -67.01 67.01 -67.01z"/>
+    <path android:fillColor="#666" android:name="inner lens" android:pathData="m200.76 103.59c28.5 0 51.6 23.1 51.6 51.6c0 28.5 -23.1 51.6 -51.6 51.6c-28.5 0 -51.6 -23.1 -51.6 -51.6c0 -28.5 23.1 -51.6 51.6 -51.6z"/>
+    <path android:fillAlpha="0.5" android:fillColor="#999"
+        android:name="lens" android:pathData="m200.75 125.44c16.42 0 29.74 13.31 29.74 29.74c0 16.42 -13.31 29.74 -29.74 29.74c-16.42 0 -29.74 -13.31 -29.74 -29.74c0 -16.42 13.31 -29.74 29.74 -29.74z"/>
+    <path android:fillColor="#676363" android:name="lens" android:pathData="m200.75 125.44c16.42 0 29.74 13.31 29.74 29.74c0 16.42 -13.31 29.74 -29.74 29.74c-16.42 0 -29.74 -13.31 -29.74 -29.74c0 -16.42 13.31 -29.74 29.74 -29.74z"/>
+    <path android:fillColor="#999" android:name="lens" android:pathData="m200.76 137.94c9.52 0 17.24 7.72 17.24 17.24c0 9.52 -7.72 17.24 -17.24 17.24c-9.52 0 -17.24 -7.72 -17.24 -17.24c0 -9.52 7.72 -17.24 17.24 -17.24z"/>
+    <path android:fillAlpha="0" android:fillColor="#999"
+        android:name="lens" android:pathData="m200.76 137.19c9.93 0 17.99 8.05 17.99 17.99c0 9.93 -8.05 17.99 -17.99 17.99c-9.93 0 -17.99 -8.05 -17.99 -17.99c0 -9.93 8.05 -17.99 17.99 -17.99z"/>
+    <path android:fillAlpha="0" android:fillColor="#333"
+        android:name="inner round shine" android:pathData="m219.55 153.78c-4.21 0 -8.95 1.67 -13.1 4.96c-7.8 6.19 -10.5 15.76 -6.04 21.38c0.99 1.24 2.24 2.19 3.68 2.84c13.04 -1.6 23.31 -12.13 24.51 -25.29c-2.09 -2.6 -5.37 -3.89 -9.06 -3.89z"/>
+    <path android:fillAlpha="0" android:fillColor="#333"
+        android:name="inner window shine" android:pathData="m201.65 142.28h0c-0 0 -0 0 -0 0zm-0.54 -10.97c-8.48 0 -15.94 4.38 -20.24 11l9.36 6.05c2.38 -3.66 6.51 -6.08 11.2 -6.08c0.07 0 0.15 0 0.22 0v-10.96h0c-0.18 -0 -0.36 -0.01 -0.54 -0.01zm-10.88 17.05c0 0 0 0 0 0zm-10.4 -4.3c-1.58 2.95 -2.57 6.27 -2.79 9.8h11.16c0.19 -1.46 0.62 -2.84 1.25 -4.11l-9.61 -5.69z"/>
+    <path android:fillAlpha="0.35" android:fillColor="#fff"
+        android:name="glow small" android:pathData="m190.18 137.32c1.24 0 2.24 1 2.24 2.24c0 1.24 -1 2.24 -2.24 2.24c-1.24 0 -2.24 -1 -2.24 -2.24c0 -1.24 1 -2.24 2.24 -2.24z"/>
+    <path android:fillAlpha="0.45" android:fillColor="#fff"
+        android:name="glow small" android:pathData="m211.18 162.32c1.24 0 2.24 1 2.24 2.24c0 1.24 -1 2.24 -2.24 2.24c-1.24 0 -2.24 -1 -2.24 -2.24c0 -1.24 1 -2.24 2.24 -2.24z"/>
+    <path android:fillAlpha="0" android:fillColor="#333"
+        android:name="outer round shine" android:pathData="m249.21 151.79c-11.03 0 -23.47 4.38 -34.33 12.99c-20.43 16.22 -27.52 41.3 -15.83 56.04c2.59 3.26 5.88 5.74 9.65 7.45c34.18 -4.18 61.11 -31.8 64.25 -66.29c-5.48 -6.82 -14.07 -10.19 -23.74 -10.19z"/>
+    <path android:fillAlpha="0" android:fillColor="#333"
+        android:name="outer window shine" android:pathData="m201.97 114.91h0c-0 0 -0 0 -0 0zm-1.32 -33.39c-25.83 0 -48.54 13.33 -61.63 33.48h0l28.51 18.42c7.25 -11.15 19.82 -18.52 34.1 -18.52c0.11 0 0.22 0 0.33 0v-33.37h0c-0.44 -0.01 -0.88 -0.01 -1.32 -0.01zm-33.12 51.9c0 0 0 0 0 0h0h-0zm-31.67 -13.09c-4.77 8.9 -7.75 18.89 -8.48 29.5h34c0.61 -4.32 1.89 -8.42 3.75 -12.19l-29.27 -17.31z"/>
+    <path android:fillAlpha="0" android:fillColor="#666"
+        android:name="color overlay" android:pathData="m200.76 82.28c40.27 0 72.91 32.64 72.91 72.91c0 40.27 -32.64 72.91 -72.91 72.91c-40.27 0 -72.91 -32.64 -72.91 -72.91c0 -40.27 32.64 -72.91 72.91 -72.91z"/>
+    <path android:fillAlpha="0" android:fillColor="#666"
+        android:name="outer ring" android:pathData="m200.76 74.77c44.41 0 80.41 36 80.41 80.41c0 44.41 -36 80.41 -80.41 80.41c-44.41 0 -80.41 -36 -80.41 -80.41c0 -44.41 36 -80.41 80.41 -80.41z"/>
+</vector>
