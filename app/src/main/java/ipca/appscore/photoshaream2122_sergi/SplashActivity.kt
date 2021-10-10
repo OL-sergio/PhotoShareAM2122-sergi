@@ -42,6 +42,7 @@ class SplashActivity : AppCompatActivity() {
                     delay(2000)
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
+                finish()
             }
 
         }else{
@@ -49,14 +50,9 @@ class SplashActivity : AppCompatActivity() {
                     delay(2000)
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
+                finish()
             }
 
-            //After 1 min returns to context activity
-            GlobalScope.launch(Dispatchers.Main) {
-                delay(60000)
-                val intent = Intent(baseContext, SplashActivity::class.java)
-                startActivity(intent)
-            }
         }
 
     }
