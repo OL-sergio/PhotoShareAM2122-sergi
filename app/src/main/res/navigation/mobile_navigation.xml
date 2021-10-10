@@ -12,14 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="ipca.appscore.photoshaream2122_sergi.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_photo"
+        android:name="ipca.appscore.photoshaream2122_sergi.ui.photo.PhotoFragment"
+        android:label="@string/title_photo"
+        tools:layout="@layout/fragment_photo" >
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="ipca.appscore.photoshaream2122_sergi.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+    </fragment>
 </navigation>
