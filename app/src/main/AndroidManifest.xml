@@ -3,6 +3,8 @@
     package="ipca.appscore.photoshaream2122_sergi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +28,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>
