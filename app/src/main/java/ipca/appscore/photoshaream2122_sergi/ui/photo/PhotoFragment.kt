@@ -10,9 +10,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import ipca.appscore.photoshaream2122_sergi.R
 import ipca.appscore.photoshaream2122_sergi.databinding.FragmentPhotoBinding
 import ipca.appscore.photoshaream2122_sergi.models.Photo
+import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 class PhotoFragment : Fragment() {
@@ -42,6 +47,21 @@ class PhotoFragment : Fragment() {
 
 
         binding.fbSendPhoto.setOnClickListener {
+
+            val baos = ByteArrayOutputStream()
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            val storage = Firebase.storage
+            val storageRef = storage.reference
+            var filename = "${UUID.randomUUID()}.jpg"
+            val mountainImageRef = storageRef.child(
+                "images/${Firebase.auth.currentUser?.uid}/filename")
+
+
+            var uploadTask = mountainImageRef.putBytes(data)
+
+
 
 
         }
