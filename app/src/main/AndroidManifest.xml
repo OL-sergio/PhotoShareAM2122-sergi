@@ -18,6 +18,9 @@
             android:exported="true" />
         <activity
             android:name=".SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.PhotoShareAM2122sergi.FullscreenContainer"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,19 +1,21 @@
 package ipca.appscore.photoshaream2122_sergi.ui.photo
 
-import android.annotation.SuppressLint
+
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.nfc.Tag
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import ipca.appscore.photoshaream2122_sergi.R
 import ipca.appscore.photoshaream2122_sergi.databinding.FragmentPhotoBinding
 import ipca.appscore.photoshaream2122_sergi.models.Photo
 import java.io.ByteArrayOutputStream
@@ -22,10 +24,14 @@ import java.util.*
 
 class PhotoFragment : Fragment() {
 
+
+
     private var _binding: FragmentPhotoBinding? = null
     private val binding get() = _binding!!
+
     private var bitmap : Bitmap? = null
 
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,15 +60,46 @@ class PhotoFragment : Fragment() {
 
             val storage = Firebase.storage
             val storageRef = storage.reference
-            var filename = "${UUID.randomUUID()}.jpg"
-            val mountainImageRef = storageRef.child(
-                "images/${Firebase.auth.currentUser?.uid}/filename")
+            val filename = "${UUID.randomUUID()}.jpg"
+            val createImageRef = storageRef.child("imgfeed/${Firebase.auth.currentUser?.uid}/$filename")
 
+            val uploadTask = createImageRef.putBytes(data)
+            uploadTask.continueWith { task ->
+                if (!task.isSuccessful){
+                    task.exception?.let {
+                        throw  it
+                    }
 
-            var uploadTask = mountainImageRef.putBytes(data)
+                }
+                createImageRef.downloadUrl
+            }
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
 
+            }.addOnSuccessListener { task ->
+             storageRef.child("imgfeed/${Firebase.auth.currentUser?.uid}$filename").downloadUrl.addOnSuccessListener {
 
+                 val downloadUri = it.toString()
+                 Log.d(TAG, "DocumentSnapshot added with ID: ${downloadUri}")
 
+                 val photo = Photo(
+                     binding.editTextDescriptionSend.text.toString(),
+                     downloadUri
+                 )
+                 db.collection("imgfeed")
+                     .add(photo.toHash())
+                     .addOnSuccessListener { referenceDocument  ->
+                         Log.d(TAG,  "DocumentSnapshot added with ID: ${referenceDocument.id}")
+
+                     }.addOnFailureListener { e ->
+                         Log.w(TAG, "Error adding document", e)
+
+                     }.addOnFailureListener{
+
+                     }
+             }
+
+            }
 
         }
 
@@ -104,7 +141,7 @@ class PhotoFragment : Fragment() {
 
     companion object{
         const val CAMERA_PIC_REQUEST = 1001
-
+        const val TAG = "PhotoFragment"
 
     }
 
