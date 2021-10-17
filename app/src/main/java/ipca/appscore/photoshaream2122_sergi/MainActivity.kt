@@ -1,6 +1,7 @@
 package ipca.appscore.photoshaream2122_sergi
 
 import android.os.Bundle
+import android.widget.EditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,6 +9,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ipca.appscore.photoshaream2122_sergi.databinding.ActivityMainBinding
+import ipca.appscore.photoshaream2122_sergi.databinding.FragmentHomeBinding
+import ipca.appscore.photoshaream2122_sergi.ui.photo.PhotoFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +34,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
+
 }

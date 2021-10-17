@@ -9,7 +9,7 @@ class Photo  {
     var bitmap      : Bitmap? = null
     var id          : String? = null
 
-    constructor(description: String, imageUrl: String) {
+    constructor(description: String) {
         this.description = description
         this.imageUrl = imageUrl
     }
@@ -23,11 +23,10 @@ class Photo  {
 
     companion object {
         fun fromHash( hashMap: QueryDocumentSnapshot): Photo {
-            val photo = Photo(
-                hashMap["description"] as String,
-                hashMap["imageUrl"] as String
+            val photoList = Photo(
+                hashMap["description"] as String
             )
-        return photo
+        return photoList
         }
     }
 
