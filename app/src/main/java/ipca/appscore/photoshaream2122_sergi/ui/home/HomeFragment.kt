@@ -54,20 +54,21 @@ class HomeFragment : Fragment() {
         binding.recycleViewPhotos.itemAnimator = DefaultItemAnimator()
 
         db.collection("imgfeed")
-            .get()
-            .addOnSuccessListener{ documents ->
-                for (document in documents){
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    val photo = Photo.fromHash(document)
-                    photos.add(photo)
+            .addSnapshotListener{ documents, e ->
+                documents?.let {
+                    photos.clear()
+                       for (document in it){
+                           Log.d(TAG, "${document.id} => ${document.data}")
+                           val photo = Photo.fromHash(document)
+                           photos.add(photo)
+
+
+                    }
+                    mAdapter?.notifyDataSetChanged()
                 }
-                mAdapter?.notifyDataSetChanged()
-
-            }.addOnFailureListener { exception ->
-                Log.w (TAG, "Error getting documents: ", exception)
             }
+        }
 
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -90,7 +91,7 @@ class HomeFragment : Fragment() {
 
        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-           holder.view.findViewById<TextView>(R.id.textView_row_description).text = photos[position].description
+           //holder.view.findViewById<TextView>(R.id.textView_row_description).text = photos[position].description
 
            holder.view.apply {
 

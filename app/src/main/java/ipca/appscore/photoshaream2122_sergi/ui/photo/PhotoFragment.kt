@@ -1,5 +1,6 @@
 package ipca.appscore.photoshaream2122_sergi.ui.photo
 
+
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -9,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -17,7 +17,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import ipca.appscore.photoshaream2122_sergi.databinding.FragmentPhotoBinding
 import ipca.appscore.photoshaream2122_sergi.models.Photo
-import ipca.appscore.photoshaream2122_sergi.ui.home.HomeFragment.Companion.TAG
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -78,23 +77,29 @@ class PhotoFragment : Fragment() {
                 // Handle unsuccessful uploads
 
             }.addOnSuccessListener { task ->
+                storageRef.child("imgfeed/${Firebase.auth.currentUser?.uid}/$filename")
+                    .downloadUrl.addOnSuccessListener {
 
-                val downloadUri = task.uploadSessionUri?.toString() ?: ""
+                    val downloadUri = it.toString()
 
-                Log.d(TAG, "DocumentSnapshot added with ID: ${uploadTask.result.toString()}")
-                val photo = Photo(
-                    binding.editTextDescriptionSend.text.toString(),
-                    downloadUri
-                )
-                db.collection("imgfeed")
-                    .add(photo.toHash())
-                    .addOnSuccessListener { referenceDocument ->
-                        Log.d(TAG, "DocumentSnapshot added with ID: ${referenceDocument.id}")
+                    Log.d(TAG, "DocumentSnapshot added with ID: ${downloadUri}")
+                    val photo = Photo(
+                        binding.editTextDescriptionSend.text.toString(),
+                        downloadUri
 
-                    }.addOnFailureListener { e ->
-                        Log.w(TAG, "Error adding document", e)
+                    )
+                    db.collection("imgfeed")
+                        .add(photo.toHash())
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
 
-                    }
+                        }.addOnFailureListener { e ->
+                            Log.w(TAG, "Error adding document", e)
+
+                        }
+                }.addOnFailureListener {
+                        // Handle any errors
+                }
             }
         }
 
@@ -119,7 +124,6 @@ class PhotoFragment : Fragment() {
                     bm?.let {
                         _binding!!.imageViewPhotoView.setImageBitmap(it)
                         bitmap = bm
-
                     }
                 }
             }

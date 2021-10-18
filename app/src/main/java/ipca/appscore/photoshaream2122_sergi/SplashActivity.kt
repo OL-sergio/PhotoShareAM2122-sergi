@@ -1,12 +1,17 @@
 package ipca.appscore.photoshaream2122_sergi
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import ipca.appscore.photoshaream2122_sergi.R
 import ipca.appscore.photoshaream2122_sergi.databinding.ActivitySplashBinding
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +59,22 @@ class SplashActivity : AppCompatActivity() {
             }
 
         }
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful){
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
 
+            val token = task.result
+
+            Log.d(TAG, "O FCM $token")
+            Toast.makeText(baseContext,"O FCM $token", Toast.LENGTH_SHORT ).show()
+
+        } )
+
+    }
+    companion object{
+        val TAG = "SplashActivity"
     }
 
 }
