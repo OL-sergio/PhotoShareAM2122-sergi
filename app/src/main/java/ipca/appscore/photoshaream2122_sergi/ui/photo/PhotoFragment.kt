@@ -1,26 +1,25 @@
 package ipca.appscore.photoshaream2122_sergi.ui.photo
 
-
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.nfc.Tag
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import ipca.appscore.photoshaream2122_sergi.databinding.FragmentPhotoBinding
 import ipca.appscore.photoshaream2122_sergi.models.Photo
+import ipca.appscore.photoshaream2122_sergi.ui.home.HomeFragment.Companion.TAG
 import java.io.ByteArrayOutputStream
 import java.util.*
-
 
 class PhotoFragment : Fragment() {
 
@@ -61,11 +60,13 @@ class PhotoFragment : Fragment() {
             val storage = Firebase.storage
             val storageRef = storage.reference
             val filename = "${UUID.randomUUID()}.jpg"
-            val createImageRef = storageRef.child("imgfeed/${Firebase.auth.currentUser?.uid}/$filename")
+            val createImageRef =
+                storageRef.child("imgfeed/${Firebase.auth.currentUser?.uid}/$filename")
+
 
             val uploadTask = createImageRef.putBytes(data)
             uploadTask.continueWith { task ->
-                if (!task.isSuccessful){
+                if (!task.isSuccessful) {
                     task.exception?.let {
                         throw  it
                     }
@@ -77,38 +78,31 @@ class PhotoFragment : Fragment() {
                 // Handle unsuccessful uploads
 
             }.addOnSuccessListener { task ->
-             storageRef.child("imgfeed/${Firebase.auth.currentUser?.uid}$filename").downloadUrl.addOnSuccessListener {
 
-                 val downloadUri = it.toString()
-                 Log.d(TAG, "DocumentSnapshot added with ID: ${downloadUri}")
+                val downloadUri = task.uploadSessionUri?.toString() ?: ""
 
-                 val photo = Photo(
-                     binding.editTextDescriptionSend.text.toString(),
-                     downloadUri
-                 )
-                 db.collection("imgfeed")
-                     .add(photo.toHash())
-                     .addOnSuccessListener { referenceDocument  ->
-                         Log.d(TAG,  "DocumentSnapshot added with ID: ${referenceDocument.id}")
+                Log.d(TAG, "DocumentSnapshot added with ID: ${uploadTask.result.toString()}")
+                val photo = Photo(
+                    binding.editTextDescriptionSend.text.toString(),
+                    downloadUri
+                )
+                db.collection("imgfeed")
+                    .add(photo.toHash())
+                    .addOnSuccessListener { referenceDocument ->
+                        Log.d(TAG, "DocumentSnapshot added with ID: ${referenceDocument.id}")
 
-                     }.addOnFailureListener { e ->
-                         Log.w(TAG, "Error adding document", e)
+                    }.addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
 
-                     }.addOnFailureListener{
-
-                     }
-             }
-
+                    }
             }
-
         }
-
 
         // Acceding android component to take a photo
         binding.fabTakePhoto.setOnClickListener {
             val takePictureIntent = Intent (MediaStore.ACTION_IMAGE_CAPTURE)
             //val intent  = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST )
+            startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST)
 
         }
 

@@ -1,6 +1,5 @@
 package ipca.appscore.photoshaream2122_sergi.ui.home
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +21,7 @@ import ipca.appscore.photoshaream2122_sergi.models.Photo
 
 class HomeFragment : Fragment() {
 
-    var photosList = arrayListOf<Photo>()
+    var photos = arrayListOf<Photo>()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -55,31 +54,35 @@ class HomeFragment : Fragment() {
         binding.recycleViewPhotos.itemAnimator = DefaultItemAnimator()
 
         db.collection("imgfeed")
-            .addSnapshotListener{ documents, _ ->
-
-                documents?.let {
-                    photosList.clear()
-                    for ( document in it){
-                        Log.d(TAG, "${document.id} => ${document.data} ")
-                        val photo = Photo.fromHash(document)
-                        photosList.add(photo)
-
-                    }
-                    mAdapter?.notifyDataSetChanged()
+            .get()
+            .addOnSuccessListener{ documents ->
+                for (document in documents){
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    val photo = Photo.fromHash(document)
+                    photos.add(photo)
                 }
+                mAdapter?.notifyDataSetChanged()
+
+            }.addOnFailureListener { exception ->
+                Log.w (TAG, "Error getting documents: ", exception)
             }
 
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 
-   inner class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder> (){
+
+    inner class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder> (){
 
        inner class ViewHolder ( val view: View) : RecyclerView.ViewHolder(view)
 
        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-           return ViewHolder(
-               LayoutInflater.from(parent.context).inflate(R.layout.row_view_photos, parent, false)
-
+           return ViewHolder(LayoutInflater
+               .from(parent.context)
+               .inflate(R.layout.row_view_photos, parent, false)
            )
 
        }
@@ -87,18 +90,16 @@ class HomeFragment : Fragment() {
 
        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-           holder.view.findViewById<TextView>(R.id.textView_row_description).text = photosList[position].description
-
+           holder.view.findViewById<TextView>(R.id.textView_row_description).text = photos[position].description
 
            holder.view.apply {
 
-
                val textViewDescription = findViewById<TextView>(R.id.textView_row_description)
-               textViewDescription.text = photosList[position].description
+               textViewDescription.text = photos[position].description
 
 
                val imageViewPhoto = findViewById<ImageView>(R.id.imageView_row_Photo)
-               Glide.with(this).load(photosList[position].imageUrl).into(imageViewPhoto)
+               Glide.with(this).load(photos[position].imageUrl).into(imageViewPhoto)
 
 
            }
@@ -106,15 +107,9 @@ class HomeFragment : Fragment() {
        }
 
        override fun getItemCount(): Int {
-            return photosList.size
+            return photos.size
        }
    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 
 
     companion object{
