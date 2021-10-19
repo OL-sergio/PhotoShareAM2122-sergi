@@ -25,11 +25,11 @@ class Photo  {
 
     companion object {
         fun fromHash( hashMap: QueryDocumentSnapshot): Photo {
-            val photoList = Photo(
+            val photo = Photo(
                 hashMap["description"] as String,
                 hashMap["imageUrl"] as String
             )
-        return photoList
+        return photo
         }
     }
 

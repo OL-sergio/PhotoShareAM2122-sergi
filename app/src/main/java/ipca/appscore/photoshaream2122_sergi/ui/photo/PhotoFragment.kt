@@ -39,8 +39,8 @@ class PhotoFragment : Fragment() {
         // Inf
         // late the layout for this fragment
         _binding = FragmentPhotoBinding.inflate(inflater, container, false)
-
-        return _binding!!.root
+        val root: View = binding.root
+        return root
     }
 
 
@@ -64,7 +64,7 @@ class PhotoFragment : Fragment() {
 
 
             val uploadTask = createImageRef.putBytes(data)
-            uploadTask.continueWith { task ->
+            uploadTask.continueWithTask { task ->
                 if (!task.isSuccessful) {
                     task.exception?.let {
                         throw  it

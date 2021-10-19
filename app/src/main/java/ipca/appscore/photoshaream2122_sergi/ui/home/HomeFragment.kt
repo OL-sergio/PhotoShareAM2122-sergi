@@ -67,6 +67,8 @@ class HomeFragment : Fragment() {
                     mAdapter?.notifyDataSetChanged()
                 }
             }
+        // Permissions to use Hashmap options
+       setHasOptionsMenu(true)
         }
 
     override fun onDestroyView() {
