@@ -1,16 +1,14 @@
 package ipca.appscore.photoshaream2122_sergi
 
 import android.os.Bundle
-import android.widget.EditText
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import ipca.appscore.photoshaream2122_sergi.databinding.ActivityMainBinding
-import ipca.appscore.photoshaream2122_sergi.databinding.FragmentHomeBinding
-import ipca.appscore.photoshaream2122_sergi.ui.photo.PhotoFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = _binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val navController = findNavController( R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -34,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 
 }

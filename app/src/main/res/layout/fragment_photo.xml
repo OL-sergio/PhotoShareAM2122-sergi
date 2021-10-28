@@ -10,16 +10,16 @@
 
     <ImageView
         android:id="@+id/imageView_photoView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="450dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/todo"
         android:src="@drawable/ic_baseline_add_a_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_descriptionSend"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_descriptionSend"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fb_send_photo"
@@ -70,6 +70,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_descriptionSend"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

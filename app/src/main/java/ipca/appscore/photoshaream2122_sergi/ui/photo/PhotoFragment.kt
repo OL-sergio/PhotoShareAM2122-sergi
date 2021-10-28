@@ -1,6 +1,5 @@
 package ipca.appscore.photoshaream2122_sergi.ui.photo
 
-
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -16,9 +15,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import ipca.appscore.photoshaream2122_sergi.databinding.FragmentPhotoBinding
+
 import ipca.appscore.photoshaream2122_sergi.models.Photo
 import java.io.ByteArrayOutputStream
 import java.util.*
+
 
 class PhotoFragment : Fragment() {
 
@@ -29,7 +30,7 @@ class PhotoFragment : Fragment() {
 
     private var bitmap : Bitmap? = null
 
-    val db = Firebase.firestore
+    val mDB = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,7 +89,7 @@ class PhotoFragment : Fragment() {
                         downloadUri
 
                     )
-                    db.collection("imgfeed")
+                        mDB.collection("imgfeed")
                         .add(photo.toHash())
                         .addOnSuccessListener { documentReference ->
                             Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
@@ -120,9 +121,9 @@ class PhotoFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK){
             when(requestCode){
                 CAMERA_PIC_REQUEST -> {
-                    val bm : Bitmap? = data?.extras?.get("data") as? Bitmap
+                    val bm  : Bitmap? = data?.extras?.get("data") as? Bitmap
                     bm?.let {
-                        _binding!!.imageViewPhotoView.setImageBitmap(it)
+                        binding.imageViewPhotoView.setImageBitmap(it)
                         bitmap = bm
                     }
                 }
@@ -131,11 +132,11 @@ class PhotoFragment : Fragment() {
     }
 
 
-
+/*
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
+    }  */
 
     companion object{
         const val CAMERA_PIC_REQUEST = 1001

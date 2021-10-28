@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,6 +15,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ipca.appscore.photoshaream2122_sergi.R
 import ipca.appscore.photoshaream2122_sergi.databinding.FragmentHomeBinding
+
 import ipca.appscore.photoshaream2122_sergi.models.Photo
 
 
@@ -51,10 +51,9 @@ class HomeFragment : Fragment() {
         binding.recycleViewPhotos.layoutManager = mLayoutManager
         mAdapter = PhotoAdapter()
         binding.recycleViewPhotos.adapter = mAdapter
-        binding.recycleViewPhotos.itemAnimator = DefaultItemAnimator()
 
         db.collection("imgfeed")
-            .addSnapshotListener{ documents, e ->
+            .addSnapshotListener{ documents, _ ->
                 documents?.let {
                     photos.clear()
                        for (document in it){
@@ -67,33 +66,31 @@ class HomeFragment : Fragment() {
                     mAdapter?.notifyDataSetChanged()
                 }
             }
-        // Permissions to use Hashmap options
+
        setHasOptionsMenu(true)
         }
 
-    override fun onDestroyView() {
+  /*  override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
+    }  */
 
 
 
-    inner class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder> (){
+    inner class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder>(){
 
        inner class ViewHolder ( val view: View) : RecyclerView.ViewHolder(view)
 
        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-           return ViewHolder(LayoutInflater
-               .from(parent.context)
-               .inflate(R.layout.row_view_photos, parent, false)
+           return ViewHolder(
+               LayoutInflater.from(parent.context).inflate(R.layout.row_view_photos, parent, false)
            )
-
        }
 
 
        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-           //holder.view.findViewById<TextView>(R.id.textView_row_description).text = photos[position].description
+          // holder.view.findViewById<TextView>(R.id.textView_row_description).text = photos[position].description
 
            holder.view.apply {
 
@@ -101,7 +98,7 @@ class HomeFragment : Fragment() {
                textViewDescription.text = photos[position].description
 
 
-               val imageViewPhoto = findViewById<ImageView>(R.id.imageView_row_Photo)
+               val imageViewPhoto = findViewById<ImageView>(R.id.imageView_row_photoView)
                Glide.with(this).load(photos[position].imageUrl).into(imageViewPhoto)
 
 

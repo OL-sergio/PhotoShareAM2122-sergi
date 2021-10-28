@@ -21,7 +21,7 @@
     </style>
 
     <style name="Theme.PhotoShareAM2122sergi.FullscreenContainer" parent="Theme.PhotoShareAM2122sergi">
-        <item name="fullscreenBackgroundColor" >@color/light_blue_A200 </item>
+        <item name="fullscreenBackgroundColor" >@color/purple_200 </item>
         <item name="fullscreenTextColor" >@color/light_blue_900</item>
     </style>
 </resources>
