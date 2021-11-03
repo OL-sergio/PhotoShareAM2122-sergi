@@ -1,7 +1,6 @@
 package ipca.appscore.photoshaream2122_sergi.models
 
 import android.graphics.Bitmap
-import android.media.Image
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class Photo  {

@@ -30,7 +30,7 @@ class PhotoFragment : Fragment() {
 
     private var bitmap : Bitmap? = null
 
-    val mDB = Firebase.firestore
+    private val mDB = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,8 +87,8 @@ class PhotoFragment : Fragment() {
                     val photo = Photo(
                         binding.editTextDescriptionSend.text.toString(),
                         downloadUri
-
                     )
+
                         mDB.collection("imgfeed")
                         .add(photo.toHash())
                         .addOnSuccessListener { documentReference ->
@@ -114,6 +114,7 @@ class PhotoFragment : Fragment() {
 
     }
 
+
     //Confirming that the request and result are true saving the photo on bitmap and imageView
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -132,11 +133,11 @@ class PhotoFragment : Fragment() {
     }
 
 
-/*
-    override fun onDestroyView() {
+
+ /*  override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }  */
+    }*/
 
     companion object{
         const val CAMERA_PIC_REQUEST = 1001

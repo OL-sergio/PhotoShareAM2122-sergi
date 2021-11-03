@@ -2,15 +2,14 @@ package ipca.appscore.photoshaream2122_sergi.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ipca.appscore.photoshaream2122_sergi.R
@@ -30,7 +29,7 @@ class HomeFragment : Fragment() {
     private var mAdapter : RecyclerView.Adapter<*>? = null
     private var mLayoutManager: LinearLayoutManager? = null
 
-    val db = Firebase.firestore
+    private val mDB = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +51,7 @@ class HomeFragment : Fragment() {
         mAdapter = PhotoAdapter()
         binding.recycleViewPhotos.adapter = mAdapter
 
-        db.collection("imgfeed")
+        mDB.collection("imgfeed")
             .addSnapshotListener{ documents, _ ->
                 documents?.let {
                     photos.clear()
@@ -68,12 +67,31 @@ class HomeFragment : Fragment() {
             }
 
        setHasOptionsMenu(true)
+
         }
 
-  /*  override fun onDestroyView() {
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.home_nav_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_sign_out){
+            Firebase.auth.signOut()
+            requireActivity().finish()
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }  */
+    }
 
 
 

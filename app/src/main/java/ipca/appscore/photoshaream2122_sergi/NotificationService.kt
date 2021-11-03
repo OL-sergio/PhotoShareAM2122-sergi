@@ -1,5 +1,6 @@
 package ipca.appscore.photoshaream2122_sergi
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -11,6 +12,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import java.lang.Exception
 
 
 class NotificationService : FirebaseMessagingService() {
@@ -38,10 +40,24 @@ class NotificationService : FirebaseMessagingService() {
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
+            it.body?.let { it1 ->
+                broadCastContentReady(applicationContext, it1)
+
+            }
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
+    }
+
+    fun broadCastContentReady(context: Context, messageBody: String){
+        val intentNotification = Intent (BROADCAST_NEW_NOTIFICATION)
+        try {
+            intentNotification.putExtra(NOTIFICATION_MESSAGE, messageBody)
+            context.sendBroadcast(intentNotification)
+        }catch (e: Exception){
+            //Log Message
+        }
     }
 
     // [END receive_message]
@@ -129,6 +145,9 @@ class NotificationService : FirebaseMessagingService() {
     companion object {
 
         const val TAG = "NotificationService"
+        const val BROADCAST_NEW_NOTIFICATION = "ipca.appscore.photoshaream2122_sergi.notification"
+        const val NOTIFICATION_MESSAGE = "ipca.appscore.photoshaream2122_sergi.message"
+
     }
 
 }

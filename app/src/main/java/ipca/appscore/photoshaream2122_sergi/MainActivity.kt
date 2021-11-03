@@ -1,5 +1,9 @@
 package ipca.appscore.photoshaream2122_sergi
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -13,6 +17,8 @@ import ipca.appscore.photoshaream2122_sergi.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
+
+    var notificationReceiver : NotificationReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,4 +40,31 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+
+
+    inner class NotificationReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+                intent?.extras?.getString(NotificationService.NOTIFICATION_MESSAGE)?.let {
+                            alertNotification(this@MainActivity, it)
+
+                    }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notificationReceiver = NotificationReceiver()
+            this.registerReceiver(notificationReceiver, IntentFilter(NotificationService.BROADCAST_NEW_NOTIFICATION))
+    }
+
+    override fun onPause() {
+        super.onPause()
+            notificationReceiver?.let {
+                this.unregisterReceiver(it)
+            }
+    }
+
 }
+
