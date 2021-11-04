@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 
-class Preference {
+class Preference(context: Context) {
 
     var loginPrefer : String
 
@@ -13,15 +13,10 @@ class Preference {
                 val editor: SharedPreferences.Editor = preferencesShared.edit()
                 editor.putString("LOGIN_PREF", value)
                 editor.apply()
-
             }
 
+    private var preferencesShared : SharedPreferences = context
+        .getSharedPreferences("Photo_PREFER",Context.MODE_PRIVATE)
 
-    lateinit var preferencesShared : SharedPreferences
-    constructor(context: Context){
-        preferencesShared = context
-            .getSharedPreferences("Photo_PREFER",Context.MODE_PRIVATE)
-
-    }
 }
 
