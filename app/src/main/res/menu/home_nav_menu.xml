@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="example.javatpoint.com.optionmenu.MainActivity"
+    >
+
     <item
         android:id="@+id/action_sign_out"
-        android:icon="@drawable/common_full_open_on_phone"
+        android:icon="@drawable/ic_baseline_account_24"
+        app:showAsAction="ifRoom"
         android:title="@string/sign_out" />
 </menu>
