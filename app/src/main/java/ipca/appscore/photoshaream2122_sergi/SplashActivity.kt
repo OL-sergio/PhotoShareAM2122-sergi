@@ -14,11 +14,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import ipca.appscore.photoshaream2122_sergi.R
 import ipca.appscore.photoshaream2122_sergi.databinding.ActivitySplashBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
+@DelicateCoroutinesApi
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var _binder: ActivitySplashBinding
@@ -74,7 +72,7 @@ class SplashActivity : AppCompatActivity() {
 
     }
     companion object{
-        val TAG = "SplashActivity"
+        const val TAG = "SplashActivity"
     }
 
 }

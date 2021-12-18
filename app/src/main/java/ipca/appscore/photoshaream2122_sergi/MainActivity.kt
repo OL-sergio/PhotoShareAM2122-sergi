@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
 
-    var notificationReceiver : NotificationReceiver? = null
+    private var notificationReceiver : NotificationReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

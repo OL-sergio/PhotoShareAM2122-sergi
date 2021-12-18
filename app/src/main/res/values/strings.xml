@@ -6,8 +6,6 @@
     <string name="dummy_content">Dummy Content</string>
     <string name="photo_share">Photo Share</string>
     <string name="todo">TODO</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
     <string name="login">Login</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -15,5 +13,11 @@
     <string name="title_photo">Add Photos</string>
     <string name="default_notification_channel_id">Id de notificação do canal</string>
     <string name="sign_out">Sign Out</string>
+    <string name="realizar_registo">Realizar registo</string>
+    <string name="realize_register">Realize register</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Name</string>
 
 </resources>

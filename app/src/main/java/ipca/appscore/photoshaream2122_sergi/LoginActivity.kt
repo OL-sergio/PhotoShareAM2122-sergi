@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,45 +37,65 @@ class LoginActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
+
+        _binder.textViewRealizeRegister.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         _binder.editTextLoginEmail.setText(Preference(this).loginPrefer)
 
         _binder.buttonLogin.setOnClickListener {
-            val email : String = _binder.editTextLoginEmail.text.toString()
+            val email: String = _binder.editTextLoginEmail.text.toString()
             val password: String = _binder.editTextLoginPassword.text.toString()
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
+            if (email == "") {
 
-                        Preference(this).loginPrefer = email
-                        val user = User("","", email)
-                        val db = Firebase.firestore
+                Toast.makeText(this@LoginActivity, "Please write email.", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (password == "") {
+                Toast.makeText(this@LoginActivity, "Please write password.", Toast.LENGTH_SHORT)
+                    .show()
 
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            } else {
 
-                        db.collection("user")
-                            .add(user.toHash())
-                            .addOnSuccessListener { documentReference ->
-                                Log.d(PhotoFragment.TAG, "DocumentSnapshot added with ID:${documentReference.id}")
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
 
-                            }.addOnFailureListener { e ->
+                            Preference(this).loginPrefer = email
+                            val user = User("", "", email)
+                            val db = Firebase.firestore
 
-                                   Log.w(PhotoFragment.TAG, "Error Adding Document", e)
-                            }
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(baseContext, "Falha a realizar login",
-                            Toast.LENGTH_SHORT).show()
+                            db.collection("user")
+                                .add(user.toHash())
+                                .addOnSuccessListener { documentReference ->
+                                    Log.d(
+                                        PhotoFragment.TAG,
+                                        "DocumentSnapshot added with ID:${documentReference.id}"
+                                    )
+
+                                }.addOnFailureListener { e ->
+
+                                    Log.w(PhotoFragment.TAG, "Error Adding Document", e)
+                                }
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(
+                                baseContext, "Falha a realizar login",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
 
                     }
-                }
+
+            }
 
         }
-
     }
-
-
-
-
 }
