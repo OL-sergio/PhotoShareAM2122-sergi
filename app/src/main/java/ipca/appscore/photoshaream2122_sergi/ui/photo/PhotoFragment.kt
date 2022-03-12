@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -23,10 +25,10 @@ import java.util.*
 
 class PhotoFragment : Fragment() {
 
-
-
     private var _binding: FragmentPhotoBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     private var bitmap : Bitmap? = null
 
@@ -104,31 +106,34 @@ class PhotoFragment : Fragment() {
             }
         }
 
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    handleCameraImage(result.data)
+
+                }
+            }
+
         // Acceding android component to take a photo
-        binding.fabTakePhoto.setOnClickListener {
-            val takePictureIntent = Intent (MediaStore.ACTION_IMAGE_CAPTURE)
-            //val intent  = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST)
+        _binding!!.fabTakePhoto.setOnClickListener {
+
+            //intent to open camera app
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            resultLauncher.launch(cameraIntent)
 
         }
 
     }
 
-
     //Confirming that the request and result are true saving the photo on bitmap and imageView
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun handleCameraImage(intent: Intent?) {
 
-        if (resultCode == Activity.RESULT_OK){
-            when(requestCode){
-                CAMERA_PIC_REQUEST -> {
-                    val bm  : Bitmap? = data?.extras?.get("data") as? Bitmap
-                    bm?.let {
-                        binding.imageViewPhotoView.setImageBitmap(it)
-                        bitmap = bm
-                    }
-                }
-            }
+        val bm: Bitmap? = intent?.extras?.get("data") as? Bitmap
+
+        bm?.let {
+            _binding!!.imageViewPhotoView.setImageBitmap(it)
+            _binding!!.fabTakePhoto.visibility = View.VISIBLE
+            bitmap = bm
         }
     }
 
